@@ -29,7 +29,7 @@ Now anyone can test this idea on real data.
 
 ### Try it live
 
-→ [https://sdtest-me.github.io/business-strength-calculator/](https://sdtest-me.github.io/business-strength-calculator/)
+→ [https://sdtest-me.github.io/resilix/](https://sdtest-me.github.io/resilix/)
 
 ### Quick Examples
 - **Walmart** — 2.1 million employees
@@ -71,7 +71,7 @@ Inspired by the discussion with **Raykhona Ibragimova** on LinkedIn.
 
 ### Попробовать онлайн
 
-→ [https://sdtest-me.github.io/business-strength-calculator/](https://sdtest-me.github.io/business-strength-calculator/)
+→ [https://sdtest-me.github.io/resilix/](https://sdtest-me.github.io/resilix/)
 
 ### Быстрые примеры
 - **Walmart** — 2,1 млн сотрудников
