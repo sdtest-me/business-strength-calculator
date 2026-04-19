@@ -64,7 +64,7 @@
 
 ### Автор
 
-Создано с помощью Grok (xAI) по запросу **Valerii Kosenko** (@sdtestme)  
+Создано с помощью Grok (xAI) по запросу (@sdtest-me)  
 Вдохновлено обсуждением с Raykhona Ibragimova.
 
 ---
