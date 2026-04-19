@@ -64,7 +64,7 @@
 
 ### Автор
 
-Создано с помощью Grok (xAI) по запросу (@sdtest-me)  
+Создано с помощью Grok (xAI) по запросу [@sdtest-me](https://github.com/sdtest-me)
 Вдохновлено обсуждением с Raykhona Ibragimova.
 
 ---
