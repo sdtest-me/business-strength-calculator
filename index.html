@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Сила Бизнеса 2.0 — Насколько бизнес зависит от людей?</title>
+  <title>Resilix — Business People Dependency</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
   <style>
@@ -13,41 +13,44 @@
       background: rgba(255,255,255,0.95); 
       backdrop-filter: blur(12px); 
     }
-    .result-card {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
   </style>
 </head>
 <body class="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
   <div class="max-w-6xl mx-auto px-4 py-8 md:py-12">
     
-    <!-- Заголовок -->
-    <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-3 bg-white shadow-md rounded-3xl px-6 py-2 mb-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+      <div class="flex items-center gap-3">
         <span class="text-3xl">📊</span>
-        <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">
-          Сила Бизнеса 2.0
-        </h1>
+        <h1 id="appTitle" class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">Resilix</h1>
       </div>
-      <p class="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto">
-        Насколько компания зависит от персонала?<br>
-        <span class="text-indigo-600 font-medium">Тест из реальной дискуссии в LinkedIn</span>
-      </p>
+      
+      <!-- Language Switch -->
+      <div class="flex gap-1 bg-white rounded-3xl shadow p-1">
+        <button onclick="switchLanguage('ru')" id="btn-ru"
+                class="px-6 py-2 rounded-3xl font-medium text-sm transition">🇷🇺 RU</button>
+        <button onclick="switchLanguage('en')" id="btn-en"
+                class="px-6 py-2 rounded-3xl font-medium text-sm bg-indigo-600 text-white transition">🇬🇧 EN</button>
+      </div>
     </div>
 
-    <!-- Форма ввода -->
+    <p id="subtitle" class="text-center text-xl md:text-2xl text-gray-600 mb-12 max-w-2xl mx-auto">
+      How dependent is your business on people?
+    </p>
+
+    <!-- Form -->
     <div class="glass rounded-3xl shadow-2xl p-8 md:p-10 mb-12">
-      <h2 class="text-2xl font-semibold mb-8 text-gray-800">Введите данные вашей компании</h2>
+      <h2 id="formTitle" class="text-2xl font-semibold mb-8 text-gray-800">Enter company data</h2>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="space-y-6">
           <div>
-            <label class="block text-sm font-medium text-gray-600 mb-2">Название компании</label>
+            <label id="labelCompany" class="block text-sm font-medium text-gray-600 mb-2">Company name</label>
             <input id="company" type="text" value="Walmart" 
                    class="w-full px-5 py-4 rounded-2xl border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-lg">
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-600 mb-2">Количество сотрудников</label>
+            <label id="labelEmployees" class="block text-sm font-medium text-gray-600 mb-2">Number of employees</label>
             <input id="employees" type="number" value="2100000" 
                    class="w-full px-5 py-4 rounded-2xl border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-lg">
           </div>
@@ -55,12 +58,12 @@
         
         <div class="space-y-6">
           <div>
-            <label class="block text-sm font-medium text-gray-600 mb-2">Чистая прибыль (млрд USD)</label>
+            <label id="labelProfit" class="block text-sm font-medium text-gray-600 mb-2">Net profit (billion USD)</label>
             <input id="profit" type="number" step="0.1" value="21.9" 
                    class="w-full px-5 py-4 rounded-2xl border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-lg">
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-600 mb-2">Выручка (млрд USD)</label>
+            <label id="labelRevenue" class="block text-sm font-medium text-gray-600 mb-2">Revenue (billion USD)</label>
             <input id="revenue" type="number" step="0.1" value="706" 
                    class="w-full px-5 py-4 rounded-2xl border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-lg">
           </div>
@@ -69,12 +72,12 @@
 
       <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <label class="block text-sm font-medium text-gray-600 mb-2">Затраты на персонал (% от выручки)</label>
+          <label id="labelLabor" class="block text-sm font-medium text-gray-600 mb-2">Labor costs (% of revenue)</label>
           <input id="laborCost" type="number" step="0.1" value="21" 
                  class="w-full px-5 py-4 rounded-2xl border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-lg">
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-600 mb-2">Уровень автоматизации (% задач)</label>
+          <label id="labelAutomation" class="block text-sm font-medium text-gray-600 mb-2">Automation level (% of tasks)</label>
           <div class="flex items-center gap-4">
             <input id="automation" type="range" min="0" max="100" value="35" 
                    class="w-full accent-indigo-600">
@@ -83,9 +86,9 @@
         </div>
       </div>
 
-      <!-- Кнопки примеров -->
+      <!-- Quick examples -->
       <div class="mt-10">
-        <p class="text-sm font-medium text-gray-500 mb-4">Быстрые примеры гигантов:</p>
+        <p id="examplesTitle" class="text-sm font-medium text-gray-500 mb-4">Quick examples of giants:</p>
         <div class="grid grid-cols-3 gap-4">
           <button onclick="loadExample(0)" 
                   class="bg-white hover:bg-emerald-50 border border-emerald-200 hover:border-emerald-300 font-semibold py-5 rounded-2xl shadow-sm transition-all flex flex-col items-center gap-2 text-emerald-700">
@@ -102,66 +105,61 @@
         </div>
       </div>
 
-      <button onclick="analyze()" 
+      <button onclick="analyze()" id="analyzeBtn"
               class="mt-10 w-full bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 text-white font-semibold text-xl py-6 rounded-3xl shadow-lg shadow-indigo-500/30 transition-all active:scale-95">
-        🚀 Проанализировать бизнес
+        🚀 Analyze Business
       </button>
     </div>
 
-    <!-- Блок результатов -->
-    <div id="result" class="hidden result-card">
+    <!-- Results -->
+    <div id="result" class="hidden">
       <div class="glass rounded-3xl shadow-2xl p-8 md:p-10">
         
-        <!-- Вердикт -->
         <div id="verdict" class="text-4xl md:text-5xl font-bold text-center mb-10 py-6 rounded-3xl"></div>
 
-        <!-- Ключевые метрики -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
           <div class="bg-white rounded-3xl shadow-inner p-6 text-center">
-            <p class="text-gray-500 text-sm font-medium">Зависимость от персонала</p>
+            <p id="metric1" class="text-gray-500 text-sm font-medium">People Dependency</p>
             <p id="dependencyScore" class="text-6xl font-bold mt-3 text-indigo-600"></p>
           </div>
           <div class="bg-white rounded-3xl shadow-inner p-6 text-center">
-            <p class="text-gray-500 text-sm font-medium">Прибыль на 1 сотрудника</p>
+            <p id="metric2" class="text-gray-500 text-sm font-medium">Profit per Employee</p>
             <p id="profitPerEmployee" class="text-6xl font-bold mt-3 text-emerald-600"></p>
           </div>
           <div class="bg-white rounded-3xl shadow-inner p-6 text-center">
-            <p class="text-gray-500 text-sm font-medium">Автоматизация</p>
+            <p id="metric3" class="text-gray-500 text-sm font-medium">Automation Level</p>
             <p id="autoLevel" class="text-6xl font-bold mt-3 text-cyan-600"></p>
           </div>
         </div>
 
-        <!-- Таблица сравнения -->
-        <h3 class="text-2xl font-semibold mb-6 text-gray-800">Сравнение с гигантами</h3>
+        <h3 id="comparisonTitle" class="text-2xl font-semibold mb-6 text-gray-800">Comparison with giants</h3>
         <div class="overflow-x-auto rounded-3xl border border-gray-100 mb-12">
           <table class="w-full text-sm">
             <thead class="bg-gray-50">
               <tr>
-                <th class="text-left py-5 px-8 font-medium text-gray-600">Компания</th>
-                <th class="text-right py-5 px-8 font-medium text-gray-600">Сотрудников</th>
-                <th class="text-right py-5 px-8 font-medium text-gray-600">Прибыль (млрд $)</th>
-                <th class="text-center py-5 px-8 font-medium text-gray-600">Зависимость</th>
+                <th id="thCompany" class="text-left py-5 px-8 font-medium text-gray-600">Company</th>
+                <th id="thEmployees" class="text-right py-5 px-8 font-medium text-gray-600">Employees</th>
+                <th id="thProfit" class="text-right py-5 px-8 font-medium text-gray-600">Profit (bn $)</th>
+                <th id="thDep" class="text-center py-5 px-8 font-medium text-gray-600">Dependency</th>
               </tr>
             </thead>
             <tbody id="comparisonTable" class="divide-y"></tbody>
           </table>
         </div>
 
-        <!-- Радар -->
         <div class="mb-12">
-          <h3 class="text-2xl font-semibold mb-6 text-gray-800">Визуализация силы бизнеса</h3>
+          <h3 id="vizTitle" class="text-2xl font-semibold mb-6 text-gray-800">Business Strength Visualization</h3>
           <div class="bg-white rounded-3xl p-6 shadow-inner">
             <canvas id="radarChart" class="w-full max-w-[520px] mx-auto"></canvas>
           </div>
         </div>
 
-        <!-- Точка невозврата -->
         <div id="criticalPoint" class="rounded-3xl p-8 border-2 border-amber-300 bg-amber-50"></div>
 
         <div class="text-center mt-12">
           <button onclick="newCalculation()" 
                   class="text-indigo-600 hover:text-indigo-700 font-medium text-lg flex items-center gap-2 mx-auto">
-            ← Новый расчёт
+            ← <span id="newCalcText">New Calculation</span>
           </button>
         </div>
       </div>
@@ -169,10 +167,99 @@
   </div>
 
   <script>
+    let currentLang = 'en';
     let myChart = null;
 
+    const translations = {
+      ru: {
+        appTitle: "Resilix",
+        subtitle: "Насколько компания зависит от персонала?",
+        formTitle: "Введите данные компании",
+        labelCompany: "Название компании",
+        labelEmployees: "Количество сотрудников",
+        labelProfit: "Чистая прибыль (млрд USD)",
+        labelRevenue: "Выручка (млрд USD)",
+        labelLabor: "Затраты на персонал (% от выручки)",
+        labelAutomation: "Уровень автоматизации (% задач)",
+        examplesTitle: "Быстрые примеры гигантов:",
+        analyzeBtn: "🚀 Проанализировать бизнес",
+        newCalcText: "Новый расчёт",
+        metric1: "Зависимость от персонала",
+        metric2: "Прибыль на 1 сотрудника",
+        metric3: "Уровень автоматизации",
+        comparisonTitle: "Сравнение с гигантами",
+        vizTitle: "Визуализация силы бизнеса",
+        thCompany: "Компания",
+        thEmployees: "Сотрудников",
+        thProfit: "Прибыль (млрд $)",
+        thDep: "Зависимость"
+      },
+      en: {
+        appTitle: "Resilix",
+        subtitle: "How dependent is your business on people?",
+        formTitle: "Enter company data",
+        labelCompany: "Company name",
+        labelEmployees: "Number of employees",
+        labelProfit: "Net profit (billion USD)",
+        labelRevenue: "Revenue (billion USD)",
+        labelLabor: "Labor costs (% of revenue)",
+        labelAutomation: "Automation level (% of tasks)",
+        examplesTitle: "Quick examples of giants:",
+        analyzeBtn: "🚀 Analyze Business",
+        newCalcText: "New Calculation",
+        metric1: "People Dependency",
+        metric2: "Profit per Employee",
+        metric3: "Automation Level",
+        comparisonTitle: "Comparison with giants",
+        vizTitle: "Business Strength Visualization",
+        thCompany: "Company",
+        thEmployees: "Employees",
+        thProfit: "Profit (bn $)",
+        thDep: "Dependency"
+      }
+    };
+
+    function switchLanguage(lang) {
+      currentLang = lang;
+      
+      // Update buttons
+      document.getElementById('btn-ru').classList.toggle('bg-indigo-600', lang === 'ru');
+      document.getElementById('btn-ru').classList.toggle('text-white', lang === 'ru');
+      document.getElementById('btn-en').classList.toggle('bg-indigo-600', lang === 'en');
+      document.getElementById('btn-en').classList.toggle('text-white', lang === 'en');
+
+      // Update all static texts
+      const t = translations[lang];
+      document.getElementById('appTitle').textContent = t.appTitle;
+      document.getElementById('subtitle').textContent = t.subtitle;
+      document.getElementById('formTitle').textContent = t.formTitle;
+      document.getElementById('labelCompany').textContent = t.labelCompany;
+      document.getElementById('labelEmployees').textContent = t.labelEmployees;
+      document.getElementById('labelProfit').textContent = t.labelProfit;
+      document.getElementById('labelRevenue').textContent = t.labelRevenue;
+      document.getElementById('labelLabor').textContent = t.labelLabor;
+      document.getElementById('labelAutomation').textContent = t.labelAutomation;
+      document.getElementById('examplesTitle').textContent = t.examplesTitle;
+      document.getElementById('analyzeBtn').textContent = t.analyzeBtn;
+      document.getElementById('newCalcText').textContent = t.newCalcText;
+      document.getElementById('metric1').textContent = t.metric1;
+      document.getElementById('metric2').textContent = t.metric2;
+      document.getElementById('metric3').textContent = t.metric3;
+      document.getElementById('comparisonTitle').textContent = t.comparisonTitle;
+      document.getElementById('vizTitle').textContent = t.vizTitle;
+      document.getElementById('thCompany').textContent = t.thCompany;
+      document.getElementById('thEmployees').textContent = t.thEmployees;
+      document.getElementById('thProfit').textContent = t.thProfit;
+      document.getElementById('thDep').textContent = t.thDep;
+
+      // Refresh result if visible
+      if (!document.getElementById('result').classList.contains('hidden')) {
+        analyze();
+      }
+    }
+
     function analyze() {
-      const company = document.getElementById('company').value.trim() || 'Компания';
+      const company = document.getElementById('company').value.trim() || 'Company';
       const employees = parseFloat(document.getElementById('employees').value) || 0;
       const profit = parseFloat(document.getElementById('profit').value) || 0;
       const revenue = parseFloat(document.getElementById('revenue').value) || 1;
@@ -182,22 +269,24 @@
       const profitPerEmp = employees > 0 ? Math.round((profit * 1e9) / employees) : 0;
       const dependency = Math.min(100, Math.max(10, Math.round(laborCost * 2.8 + (100 - automation) * 0.55)));
 
-      // Вердикт
+      const t = translations[currentLang];
+
+      // Verdict
       let verdictHTML = '';
       if (dependency < 45) {
-        verdictHTML = `<span class="bg-emerald-100 text-emerald-700 px-10 py-5 rounded-3xl text-4xl inline-block">🟢 Сильный независимый бизнес</span>`;
+        verdictHTML = `<span class="bg-emerald-100 text-emerald-700 px-10 py-5 rounded-3xl text-4xl inline-block">🟢 ${currentLang === 'ru' ? 'Сильный независимый бизнес' : 'Strong Independent Business'}</span>`;
       } else if (dependency < 70) {
-        verdictHTML = `<span class="bg-amber-100 text-amber-700 px-10 py-5 rounded-3xl text-4xl inline-block">🟡 Зависит от людей, но управляемо</span>`;
+        verdictHTML = `<span class="bg-amber-100 text-amber-700 px-10 py-5 rounded-3xl text-4xl inline-block">🟡 ${currentLang === 'ru' ? 'Зависит от людей, но управляемо' : 'Manageable Dependence'}</span>`;
       } else {
-        verdictHTML = `<span class="bg-red-100 text-red-700 px-10 py-5 rounded-3xl text-4xl inline-block">🔴 Критически зависит от персонала</span>`;
+        verdictHTML = `<span class="bg-red-100 text-red-700 px-10 py-5 rounded-3xl text-4xl inline-block">🔴 ${currentLang === 'ru' ? 'Критически зависит от персонала' : 'Critically Dependent'}</span>`;
       }
       document.getElementById('verdict').innerHTML = verdictHTML;
 
       document.getElementById('dependencyScore').textContent = dependency + '/100';
-      document.getElementById('profitPerEmployee').textContent = profitPerEmp.toLocaleString('ru-RU');
+      document.getElementById('profitPerEmployee').textContent = profitPerEmp.toLocaleString(currentLang === 'ru' ? 'ru-RU' : 'en-US');
       document.getElementById('autoLevel').textContent = automation + '%';
 
-      // Таблица сравнения
+      // Table
       const examples = [
         {name: 'Walmart', emp: 2100000, prof: 21.9, dep: 87},
         {name: 'Amazon', emp: 1576000, prof: 77.7, dep: 68},
@@ -207,7 +296,7 @@
 
       let rows = '';
       examples.forEach(ex => {
-        const empStr = ex.emp >= 1000000 ? (ex.emp/1000000).toFixed(1) + ' млн' : ex.emp.toLocaleString('ru-RU');
+        const empStr = ex.emp >= 1000000 ? (ex.emp/1000000).toFixed(1) + 'M' : ex.emp.toLocaleString(currentLang === 'ru' ? 'ru-RU' : 'en-US');
         rows += `<tr class="hover:bg-gray-50">
           <td class="py-5 px-8 font-semibold">${ex.name}</td>
           <td class="py-5 px-8 text-right">${empStr}</td>
@@ -217,14 +306,15 @@
       });
       document.getElementById('comparisonTable').innerHTML = rows;
 
-      // Радарный график
+      // Radar Chart
       const ctx = document.getElementById('radarChart');
       if (myChart) myChart.destroy();
-      
       myChart = new Chart(ctx, {
         type: 'radar',
         data: {
-          labels: ['Независимость от людей', 'Автоматизация', 'Прибыль на сотрудника', 'Масштаб'],
+          labels: currentLang === 'ru' 
+            ? ['Независимость от людей', 'Автоматизация', 'Прибыль на сотрудника', 'Масштаб']
+            : ['Independence from People', 'Automation', 'Profit per Employee', 'Scale'],
           datasets: [{
             label: company,
             data: [100 - dependency, automation, Math.min(100, profitPerEmp / 40000), Math.min(100, employees / 20000)],
@@ -242,21 +332,21 @@
         }
       });
 
-      // Точка невозврата
+      // Critical Point
       const criticalHTML = dependency > 75 
         ? `<div class="flex items-start gap-4">
              <div class="text-4xl">⚠️</div>
              <div>
-               <p class="font-semibold text-xl text-amber-800 mb-2">Критическая точка невозврата</p>
-               <p class="text-amber-700">Если штат упадёт ниже <strong>75–80%</strong> от текущего уровня — маржа и продажи могут рухнуть необратимо.</p>
-               <p class="mt-4 text-amber-600 text-sm">Рекомендация: срочно ускорять автоматизацию и удерживать ключевых сотрудников.</p>
+               <p class="font-semibold text-xl text-amber-800 mb-2">${currentLang === 'ru' ? 'Критическая точка невозврата' : 'Point of No Return'}</p>
+               <p class="text-amber-700">${currentLang === 'ru' ? 'Если штат упадёт ниже 75–80% — маржа и продажи могут рухнуть необратимо.' : 'If staff drops below 75–80% of current level — margin and sales may collapse irreversibly.'}</p>
+               <p class="mt-4 text-amber-600 text-sm">${currentLang === 'ru' ? 'Рекомендация: ускорять автоматизацию и удерживать ключевых сотрудников.' : 'Recommendation: accelerate automation and retain key employees.'}</p>
              </div>
            </div>`
         : `<div class="flex items-start gap-4">
              <div class="text-4xl">✅</div>
              <div>
-               <p class="font-semibold text-xl text-emerald-800 mb-2">Бизнес относительно устойчив</p>
-               <p class="text-emerald-700">Точка невозврата ещё далеко, но продолжайте следить за текучестью кадров и уровнем автоматизации.</p>
+               <p class="font-semibold text-xl text-emerald-800 mb-2">${currentLang === 'ru' ? 'Бизнес относительно устойчив' : 'Business is relatively resilient'}</p>
+               <p class="text-emerald-700">${currentLang === 'ru' ? 'Точка невозврата ещё далеко.' : 'Point of no return is still far away.'}</p>
              </div>
            </div>`;
       document.getElementById('criticalPoint').innerHTML = criticalHTML;
@@ -287,14 +377,15 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Обновление значения ползунка
+    // Slider value
     document.getElementById('automation').addEventListener('input', function() {
       document.getElementById('automationValue').textContent = this.value + '%';
     });
 
-    // При загрузке страницы результат скрыт
+    // Initial language
     window.onload = () => {
       document.getElementById('result').classList.add('hidden');
+      switchLanguage('en');   // Default language is English
     };
   </script>
 </body>
